@@ -21,13 +21,13 @@ textarea {
   border-bottom: 10px solid black;
 }
 
-.description{
+.description {
   white-space: pre-wrap;
 }
 
 /* Calendar Styling */
 
-.time-block{
+.time-block {
   text-align: center;
   border-radius: 15px;
 }
