@@ -1,4 +1,4 @@
-var currentTasks = [];
+var timeBlockTasks = [];
 
 // Display current date in jumbotron
 var headerDate = document.querySelector("#currentDay");
@@ -6,27 +6,58 @@ var todaysDate = moment().format("dddd, MMMM Do, YYYY");
 headerDate.textContent = todaysDate;
 
 // each hour block set to current time 
-var currentTime = moment().format("H");
-console.log(currentTime);
+function checkCurrentTime(hourTitle) {
+  var currentTime = moment().format("hA");
+  console.log(currentTime);
 
+//   var taskHourEl = $(".hour").text().trim();
+//   console.log(taskHourEl);
+
+//   if (currentTime == taskHourEl) {
+//     taskHourEl = $(hourTitle).addClass(".present")
+//   }
+//   else if (currentTime > taskHourEl) {
+//     taskHourEl = $(hourTitle).addClass(".past")
+//   }
+//   else {
+//     taskHourEl.addClass = "future";
+//   }
+};
+checkCurrentTime();
 
 function hourChecker() {
-  // put each hour in a span tag
-  // compare span value to the currentTime variable
-  // set color attributes 
+  var taskHour = $(".hour").text().trim();
+  console.log(taskHour);
+};
+hourChecker();
+
+// save tasks to localStorage
+function saveTask() {
+  localStorage.setItem("savedTasks", JSON.stringify(timeBlockTasks));
 };
 
-// function saveButton() {
-//   var saveText = $(this).$("#task-description").val();
-// };
+// load saved tasks from localStorage
+// function loadTasks() {
 
-$(".saveBtn").click(function() {
+// }
+
+
+// when save button clicked grab time blocks hour / new task then saveTask();
+$(".time-block").on("click", "button", function() {
   console.log("click");
-  var hourTextbox = $(".description").val();
-  console.log(hourTextbox);
 
-  var hourTime = $("h3").text();
-  // gets ALL hours of h3 
+  var hourTextbox = $(this).siblings(".description").val();
+  console.log(hourTextbox);
+ 
+  var hourTime = $(this).siblings(".hour").text().trim();
   console.log(hourTime);
+
+  // push new changes to empty array
+  timeBlockTasks.push({
+    text: hourTextbox,
+    hour: hourTime
+  }); 
+  console.log(timeBlockTasks);
+  saveTask();
 });
 
