@@ -6,51 +6,45 @@ var todaysDate = moment().format("dddd, MMMM Do, YYYY");
 headerDate.textContent = todaysDate;
 
 // each hour block set to current time 
-function checkCurrentTime(hourTitle) {
-  var currentTime = moment().format("hA");
-  console.log(currentTime);
+function checkCurrentTime() {
+  var currentHour = moment().hours();
 
-//   var taskHourEl = $(".hour").text().trim();
-//   console.log(taskHourEl);
+  $(".time-block").each(function() {
+    var taskHour = parseInt(
+    $(this)
+    .attr("id"))
 
-//   if (currentTime == taskHourEl) {
-//     taskHourEl = $(hourTitle).addClass(".present")
-//   }
-//   else if (currentTime > taskHourEl) {
-//     taskHourEl = $(hourTitle).addClass(".past")
-//   }
-//   else {
-//     taskHourEl.addClass = "future";
-//   }
+    if (currentHour === taskHour) {
+      // taskHourEl.setAttribute("class", "col-9 description present");
+      $(this).addClass("present");
+      $(this).removeClass("past");
+      $(this).removeClass("future");
+    }
+    else if (currentHour > taskHour) {
+      $(this).addClass("past");
+      $(this).removeClass("future");
+      $(this).removeClass("present");
+    }
+    else {
+      $(this).addClass("future");
+      $(this).removeClass("past");
+      $(this).removeClass("present");
+    }
+  })
+
 };
+
 checkCurrentTime();
-
-function hourChecker() {
-  var taskHour = $(".hour").text().trim();
-  console.log(taskHour);
-};
-hourChecker();
 
 // save tasks to localStorage
 function saveTask() {
   localStorage.setItem("savedTasks", JSON.stringify(timeBlockTasks));
 };
 
-// load saved tasks from localStorage
-// function loadTasks() {
-
-// }
-
-
 // when save button clicked grab time blocks hour / new task then saveTask();
 $(".time-block").on("click", "button", function() {
-  console.log("click");
-
-  var hourTextbox = $(this).siblings(".description").val();
-  console.log(hourTextbox);
- 
+  var hourTextbox = $(this).siblings(".description").val(); 
   var hourTime = $(this).siblings(".hour").text().trim();
-  console.log(hourTime);
 
   // push new changes to empty array
   timeBlockTasks.push({
@@ -61,3 +55,13 @@ $(".time-block").on("click", "button", function() {
   saveTask();
 });
 
+// load saved tasks from localStorage
+function loadTasks() {
+  var checkTasks = JSON.parse(localStorage.getItem("savedTasks"));
+  console.log(checkTasks);
+  // how do I get the content to load back on page?? 
+};
+
+$("#9 .description").val(localStorage.getItem("hour"));
+
+loadTasks();
