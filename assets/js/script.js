@@ -72,5 +72,7 @@ $(".time-block").on("click", "button", function() {
   saveTask();
 });
 
+setInterval = (checkCurrentTime, (1000 * 60) * 30);
+
 checkCurrentTime();
 loadTasks();
