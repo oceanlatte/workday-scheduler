@@ -55,7 +55,7 @@ function loadTasks() {
 
 // save tasks to localStorage
 function saveTask() {
-  localStorage.setItem("savedTasks", JSON.stringify(timeBlocksTasks));
+  localStorage.setItem("savedTasks", JSON.stringify(timeBlockTasks));
 };
 
 // when save button clicked grab time blocks hour / new task then saveTask();
